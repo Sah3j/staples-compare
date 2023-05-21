@@ -36,7 +36,7 @@ export class AppComponent {
       headers: new HttpHeaders({'Content-Type': 'application/json'})
     }
   
-    this.http.post<ProductResponse>('http://localhost:5063/api/products/scrape', JSON.stringify(this.productLink), httpOptions).subscribe(
+    this.http.post<ProductResponse>('https://staples-compare.azurewebsites.net/api/products/scrape', JSON.stringify(this.productLink), httpOptions).subscribe(
       response => {
         const productName = response.productName;
         this.products.push({ name: productName, link: this.productLink });
@@ -59,7 +59,7 @@ export class AppComponent {
     const productLinks = this.products.map(product => product.link);
 
     this.products.forEach((product, index) => {
-      this.http.post<ProductSpecification[]>('http://localhost:5063/api/products/scrape-specifications', JSON.stringify([product.link]), httpOptions).subscribe(
+      this.http.post<ProductSpecification[]>('https://staples-compare.azurewebsites.net/api/products/scrape-specifications', JSON.stringify([product.link]), httpOptions).subscribe(
         specifications => {
           product.specifications = specifications;
           product.imageLink = specifications[0].imageLink;
